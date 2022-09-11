@@ -1,0 +1,16 @@
+package com.example.pigalev_practical1;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
+public class ChangingData extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_changing_data);
+    }
+
+
+}

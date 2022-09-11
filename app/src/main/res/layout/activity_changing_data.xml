@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChangingData">
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Изменение БД"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/texMarka"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Марка"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heading"
+        app:layout_constraintEnd_toStartOf="@+id/textModel"/>
+
+    <TextView
+        android:id="@+id/textModel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Модель"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heading"
+        app:layout_constraintStart_toEndOf= "@+id/texMarka"/>
+
+    <TextView
+        android:id="@+id/textYearProduction"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Год производства"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/texMarka" />
+
+    <TableRow
+        android:id="@+id/buttonChanging"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textYearProduction"
+        android:layout_weight="1">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAdd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:text="Добавить"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnClear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:text="Очистить"/>
+    </TableRow>
+
+    <TableLayout
+        android:id="@+id/dbOutput"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/Exit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonChanging">
+    </TableLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dbOutput"
+        android:text="Перейти к списку"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

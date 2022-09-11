@@ -1,5 +1,6 @@
 package com.example.pigalev_practical1;
 
+import android.annotation.SuppressLint;
 import android.os.StrictMode;
 import android.util.Log;
 
@@ -8,6 +9,7 @@ import java.sql.DriverManager;
 
 public class BaseData {
     String userName, userPassword, ip, port, dataBase;
+    @SuppressLint("NewApi")
     public Connection connectionClass(){
         ip = "ngknn.ru";
         dataBase = "Pigalev";
