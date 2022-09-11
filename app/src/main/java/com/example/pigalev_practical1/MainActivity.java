@@ -60,21 +60,21 @@ public class MainActivity extends AppCompatActivity {
                     params.weight = 3.0f;
                     outputMarka.setLayoutParams(params);
                     outputMarka.setText(resultSet.getString(2));
-                    outputMarka.setTextSize(14);
+                    outputMarka.setTextSize(12);
                     dbOutputRow.addView(outputMarka);
 
                     TextView outputModel = new TextView(this);
                     params.weight = 3.0f;
                     outputModel.setLayoutParams(params);
                     outputModel.setText(resultSet.getString(3));
-                    outputModel.setTextSize(14);
+                    outputModel.setTextSize(12);
                     dbOutputRow.addView(outputModel);
 
                     TextView outputYearProduction = new TextView(this);
                     params.weight = 3.0f;
                     outputYearProduction.setLayoutParams(params);
                     outputYearProduction.setText(resultSet.getString(4));
-                    outputYearProduction.setTextSize(14);
+                    outputYearProduction.setTextSize(12);
                     dbOutputRow.addView(outputYearProduction);
 
                     List.addView(dbOutputRow);
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (Exception ex)
         {
+
         }
 
     }

@@ -15,32 +15,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/texMarka"
+    <EditText
+        android:id="@+id/textMarka"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Марка"
+        android:hint ="Марка"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/heading"
         app:layout_constraintEnd_toStartOf="@+id/textModel"/>
 
-    <TextView
+    <EditText
         android:id="@+id/textModel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Модель"
+        android:hint ="Модель"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/heading"
-        app:layout_constraintStart_toEndOf= "@+id/texMarka"/>
+        app:layout_constraintStart_toEndOf= "@+id/textMarka"/>
 
-    <TextView
+    <EditText
         android:id="@+id/textYearProduction"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Год производства"
+        android:hint ="Год производства"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/texMarka" />
+        app:layout_constraintTop_toBottomOf="@+id/textMarka" />
 
     <TableRow
         android:id="@+id/buttonChanging"
@@ -54,17 +57,19 @@
             android:id="@+id/btnAdd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="3dp"
-            android:text="Добавить"/>
+            android:layout_weight="1"
+            android:onClick="AddData"
+            android:text="Добавить" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnClear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="3dp"
-            android:text="Очистить"/>
+            android:layout_weight="1"
+            android:onClick="ClearData"
+            android:text="Очистить" />
     </TableRow>
 
     <TableLayout
@@ -81,11 +86,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:onClick="GoExit"
+        android:text="Перейти к списку"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dbOutput"
-        android:text="Перейти к списку"/>
+        app:layout_constraintTop_toBottomOf="@id/dbOutput" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
