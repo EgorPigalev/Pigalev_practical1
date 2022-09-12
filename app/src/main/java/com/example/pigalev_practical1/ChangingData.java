@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -21,6 +23,7 @@ public class ChangingData extends AppCompatActivity {
     Connection connection;
     String ConnectionResult = "";
     EditText textMarka, textModel, textYearProduction;
+    String id; // Переменная для хранения индекса строки (используется при нажатие кнопки "Изменить запись")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +107,7 @@ public class ChangingData extends AppCompatActivity {
                     dbOutputRow.addView(outputYearProduction);
 
                     Button deleteBtn = new Button(this);
-                    deleteBtn.setOnClickListener(UpdateLine());
+                    deleteBtn.setOnClickListener(this::Go);
                     params.weight = 1.0f;
                     deleteBtn.setLayoutParams(params);
                     deleteBtn.setText("Изменить\nзапись");
@@ -130,7 +133,7 @@ public class ChangingData extends AppCompatActivity {
             BaseData baseData = new BaseData();
             connection = baseData.connectionClass();
             if(connection != null) {
-                String query = "Insert into Cars(Marka, Model, YearProduction) Values(" + textMarka.getText() + ", " + textModel.getText() + ", " + textYearProduction.getText() + ")";
+                String query = "Insert into Cars(Marka, Model, YearProduction) Values('" + textMarka.getText() + "', '" + textModel.getText() + "', '" + textYearProduction.getText() + "')";
                 Statement statement = connection.createStatement();
                 statement.executeQuery(query);
             }
@@ -147,6 +150,19 @@ public class ChangingData extends AppCompatActivity {
     public void GoExit(View v)
     {
         startActivity(new Intent(this, MainActivity.class));
+    }
+
+    public void Go(View v)
+    {
+        TableRow  tableRow = (TableRow) v.getParent();
+        TextView textView = (TextView) tableRow.getChildAt(0);
+        String idLine = textView.getText().toString();
+        Intent intent = new Intent(this, SingleEntryChange.class);
+        Bundle b = new Bundle();
+        b.putInt("key", Integer.parseInt(idLine));
+        intent.putExtras(b);
+        startActivity(intent);
+        finish();
     }
 
     public void ClearData(View v)
@@ -166,10 +182,5 @@ public class ChangingData extends AppCompatActivity {
 
         }
         UpdateTable();
-    }
-    public View.OnClickListener UpdateLine()
-    {
-
-        return null;
     }
 }
