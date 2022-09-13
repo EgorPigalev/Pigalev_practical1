@@ -52,29 +52,29 @@ public class MainActivity extends AppCompatActivity {
                     TextView outputID = new TextView(this);
                     params.weight = 1.0f;
                     outputID.setLayoutParams(params);
-                    outputID.setText(resultSet.getString(1));
-                    outputID.setTextSize(12);
+                    outputID.setText(resultSet.getString(1).replaceAll("\\s+",""));
+                    outputID.setTextSize(18);
                     dbOutputRow.addView(outputID);
 
                     TextView outputMarka = new TextView(this);
                     params.weight = 3.0f;
                     outputMarka.setLayoutParams(params);
-                    outputMarka.setText(resultSet.getString(2));
-                    outputMarka.setTextSize(12);
+                    outputMarka.setText(resultSet.getString(2).replaceAll("\\s+",""));
+                    outputMarka.setTextSize(18);
                     dbOutputRow.addView(outputMarka);
 
                     TextView outputModel = new TextView(this);
                     params.weight = 3.0f;
                     outputModel.setLayoutParams(params);
-                    outputModel.setText(resultSet.getString(3));
-                    outputModel.setTextSize(12);
+                    outputModel.setText(resultSet.getString(3).replaceAll("\\s+",""));
+                    outputModel.setTextSize(18);
                     dbOutputRow.addView(outputModel);
 
                     TextView outputYearProduction = new TextView(this);
                     params.weight = 3.0f;
                     outputYearProduction.setLayoutParams(params);
-                    outputYearProduction.setText(resultSet.getString(4));
-                    outputYearProduction.setTextSize(12);
+                    outputYearProduction.setText(resultSet.getString(4).replaceAll("\\s+",""));
+                    outputYearProduction.setTextSize(18);
                     dbOutputRow.addView(outputYearProduction);
 
                     List.addView(dbOutputRow);

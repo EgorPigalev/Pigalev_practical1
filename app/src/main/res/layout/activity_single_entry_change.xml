@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Марка"
+        android:inputType="textCapWords"
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf = "@+id/heading"/>
 
@@ -28,6 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Модель"
+        android:inputType="textCapWords"
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf = "@+id/textMarka" />
 
@@ -36,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Год производства"
+        android:inputType="date"
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@+id/textModel" />
 

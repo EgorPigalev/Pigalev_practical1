@@ -81,28 +81,28 @@ public class ChangingData extends AppCompatActivity {
                     TextView outputID = new TextView(this);
                     params.weight = 1.0f;
                     outputID.setLayoutParams(params);
-                    outputID.setText(resultSet.getString(1));
+                    outputID.setText(resultSet.getString(1).replaceAll("\\s+",""));
                     outputID.setTextSize(12);
                     dbOutputRow.addView(outputID);
 
                     TextView outputMarka = new TextView(this);
                     params.weight = 3.0f;
                     outputMarka.setLayoutParams(params);
-                    outputMarka.setText(resultSet.getString(2));
+                    outputMarka.setText(resultSet.getString(2).replaceAll("\\s+",""));
                     outputMarka.setTextSize(12);
                     dbOutputRow.addView(outputMarka);
 
                     TextView outputModel = new TextView(this);
                     params.weight = 3.0f;
                     outputModel.setLayoutParams(params);
-                    outputModel.setText(resultSet.getString(3));
+                    outputModel.setText(resultSet.getString(3).replaceAll("\\s+",""));
                     outputModel.setTextSize(12);
                     dbOutputRow.addView(outputModel);
 
                     TextView outputYearProduction = new TextView(this);
                     params.weight = 3.0f;
                     outputYearProduction.setLayoutParams(params);
-                    outputYearProduction.setText(resultSet.getString(4));
+                    outputYearProduction.setText(resultSet.getString(4).replaceAll("\\s+",""));
                     outputYearProduction.setTextSize(12);
                     dbOutputRow.addView(outputYearProduction);
 
@@ -136,16 +136,16 @@ public class ChangingData extends AppCompatActivity {
                 String query = "Insert into Cars(Marka, Model, YearProduction) Values('" + textMarka.getText() + "', '" + textModel.getText() + "', '" + textYearProduction.getText() + "')";
                 Statement statement = connection.createStatement();
                 statement.executeQuery(query);
+                textMarka.setText("");
+                textModel.setText("");
+                textYearProduction.setText("");
+                UpdateTable();
             }
         }
         catch (Exception ex)
         {
-
+            Toast.makeText(this, "При добавление данных в БД возникла ошибка", Toast.LENGTH_LONG).show();
         }
-        textMarka.setText("");
-        textModel.setText("");
-        textYearProduction.setText("");
-        UpdateTable();
     }
     public void GoExit(View v)
     {

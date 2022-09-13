@@ -15,8 +15,6 @@ import java.sql.Statement;
 public class SingleEntryChange extends AppCompatActivity {
 
     Connection connection;
-    EditText textMarka, textModel, textYearProduction;
-
     Integer index;
 
     @Override
@@ -116,12 +114,12 @@ public class SingleEntryChange extends AppCompatActivity {
                 String query = "Update Cars Set Marka = '" + textMarka.getText() + "', Model = '" + textModel.getText() + "', YearProduction = '" + textYearProduction.getText() + "' where ID = " + index;
                 Statement statement = connection.createStatement();
                 statement.executeQuery(query);
+                Exit(v);
             }
         }
         catch (Exception ex)
         {
-
+            Toast.makeText(this, "При изменение данных в БД возникла ошибка", Toast.LENGTH_LONG).show();
         }
-        Exit(v);
     }
 }
