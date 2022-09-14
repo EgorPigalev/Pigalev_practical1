@@ -107,6 +107,10 @@ public class SingleEntryChange extends AppCompatActivity {
         EditText textMarka = findViewById(R.id.textMarka);
         EditText textModel = findViewById(R.id.textModel);
         EditText textYearProduction = findViewById(R.id.textYearProduction);
+        if(textMarka.getText().length() == 0 || textModel.getText().length() == 0 || textYearProduction.getText().length() == 0){
+            Toast.makeText(this, "Все поля должны быть заполнены", Toast.LENGTH_LONG).show();
+            return;
+        }
         try
         {
             BaseData baseData = new BaseData();

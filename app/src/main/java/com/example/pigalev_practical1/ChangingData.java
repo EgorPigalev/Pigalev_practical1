@@ -3,12 +3,8 @@ package com.example.pigalev_practical1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -131,6 +127,10 @@ public class ChangingData extends AppCompatActivity {
     }
     public void AddData(View v)
     {
+        if(textMarka.getText().length() == 0 || textModel.getText().length() == 0 || textYearProduction.getText().length() == 0){
+            Toast.makeText(this, "Все поля должны быть заполнены", Toast.LENGTH_LONG).show();
+            return;
+        }
         try
         {
             BaseData baseData = new BaseData();
