@@ -79,7 +79,7 @@ public class SingleEntryChange extends AppCompatActivity {
         }
         catch (Exception ex)
         {
-
+            Toast.makeText(this, "При выводе данных произошла ошибка", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -92,11 +92,12 @@ public class SingleEntryChange extends AppCompatActivity {
             if(connection != null) {
                 String query = "Delete From Cars where ID = " + index;
                 Statement statement = connection.createStatement();
-                statement.executeQuery(query);
+                statement.executeUpdate(query);
             }
         }
         catch (Exception ex)
         {
+            Toast.makeText(this, "При удаление данных возникла ошибка", Toast.LENGTH_LONG).show();
         }
         Exit(v);
     }
@@ -113,12 +114,13 @@ public class SingleEntryChange extends AppCompatActivity {
             if(connection != null) {
                 String query = "Update Cars Set Marka = '" + textMarka.getText() + "', Model = '" + textModel.getText() + "', YearProduction = '" + textYearProduction.getText() + "' where ID = " + index;
                 Statement statement = connection.createStatement();
-                statement.executeQuery(query);
+                statement.executeUpdate(query);
             }
         }
         catch (Exception ex)
         {
             Toast.makeText(this, "При изменение данных в БД возникла ошибка", Toast.LENGTH_LONG).show();
         }
+        Exit(v);
     }
 }

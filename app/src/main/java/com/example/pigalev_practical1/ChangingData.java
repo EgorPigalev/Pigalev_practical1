@@ -26,7 +26,6 @@ public class ChangingData extends AppCompatActivity {
     Connection connection;
     String ConnectionResult = "";
     EditText textMarka, textModel, textYearProduction;
-    String id; // Переменная для хранения индекса строки (используется при нажатие кнопки "Изменить запись")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +126,7 @@ public class ChangingData extends AppCompatActivity {
         }
         catch (Exception ex)
         {
+            Toast.makeText(this, "При выводе данных возникла ошибка", Toast.LENGTH_LONG).show();
         }
     }
     public void AddData(View v)
@@ -138,12 +138,12 @@ public class ChangingData extends AppCompatActivity {
             if(connection != null) {
                 String query = "Insert into Cars(Marka, Model, YearProduction) Values('" + textMarka.getText() + "', '" + textModel.getText() + "', '" + textYearProduction.getText() + "')";
                 Statement statement = connection.createStatement();
-                statement.executeQuery(query);
+                statement.executeUpdate(query);
             }
         }
         catch (Exception ex)
         {
-            Toast.makeText(this, "При изменение данных в БД возникла ошибка", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "При добавление данных в БД возникла ошибка", Toast.LENGTH_LONG).show();
         }
         textMarka.setText("");
         textModel.setText("");
@@ -177,12 +177,12 @@ public class ChangingData extends AppCompatActivity {
             if(connection != null) {
                 String query = "Delete From Cars";
                 Statement statement = connection.createStatement();
-                statement.executeQuery(query);
+                statement.executeUpdate(query);
             }
         }
         catch (Exception ex)
         {
-
+            Toast.makeText(this, "При удаление данных возникла ошибка", Toast.LENGTH_LONG).show();
         }
         UpdateTable();
     }
