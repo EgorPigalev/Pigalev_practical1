@@ -114,7 +114,6 @@ public class SingleEntryChange extends AppCompatActivity {
                 String query = "Update Cars Set Marka = '" + textMarka.getText() + "', Model = '" + textModel.getText() + "', YearProduction = '" + textYearProduction.getText() + "' where ID = " + index;
                 Statement statement = connection.createStatement();
                 statement.executeQuery(query);
-                Exit(v);
             }
         }
         catch (Exception ex)

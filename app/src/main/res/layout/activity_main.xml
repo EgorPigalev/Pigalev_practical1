@@ -18,10 +18,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/OutputList"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:background="@drawable/batton_background"
         android:onClick="GetTextFromSql"
+        android:layout_margin="10dp"
         android:text="Вывести список"
         app:layout_constraintEnd_toStartOf="@+id/InsertList"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,10 +31,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/InsertList"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:onClick="GoChange"
+        android:background="@drawable/batton_background"
+        android:layout_margin="10dp"
         android:text="Изменить данные"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/OutputList"

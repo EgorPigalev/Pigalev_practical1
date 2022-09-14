@@ -57,6 +57,7 @@
             android:layout_margin="3dp"
             android:layout_weight="1"
             android:onClick="updateLine"
+            android:background="@drawable/batton_background"
             android:text="Изменить" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -66,6 +67,7 @@
             android:layout_margin="3dp"
             android:layout_weight="1"
             android:onClick="deleteLine"
+            android:background="@drawable/batton_background"
             android:text="Удалить" />
     </TableRow>
 
@@ -75,6 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:onClick="Exit"
+        android:background="@drawable/batton_background"
         android:text="Назад"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

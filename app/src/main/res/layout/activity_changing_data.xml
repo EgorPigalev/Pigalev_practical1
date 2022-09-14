@@ -62,6 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@drawable/batton_background"
             android:onClick="AddData"
             android:text="Добавить" />
 
@@ -71,6 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@drawable/batton_background"
             android:onClick="ClearData"
             android:text="Очистить" />
     </TableRow>
@@ -90,6 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:onClick="GoExit"
+        android:background="@drawable/batton_background"
         android:text="Вернуться в главное меню"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
