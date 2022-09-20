@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Connection;
@@ -61,6 +63,7 @@ public class SingleEntryChange extends AppCompatActivity {
         EditText textMarka = findViewById(R.id.textMarka);
         EditText textModel = findViewById(R.id.textModel);
         EditText textYearProduction = findViewById(R.id.textYearProduction);
+        ImageView picture = findViewById(R.id.Picture);
         try
         {
             BaseData baseData = new BaseData();
@@ -74,6 +77,13 @@ public class SingleEntryChange extends AppCompatActivity {
                     textMarka.setText(resultSet.getString(2).replaceAll("\\s+",""));
                     textModel.setText(resultSet.getString(3).replaceAll("\\s+",""));
                     textYearProduction.setText(resultSet.getString(4).replaceAll("\\s+",""));
+                    if(resultSet.getString(5) == null)
+                    {
+                        picture.setBackgroundResource(R.drawable.absence);
+                    }
+                    else{
+
+                    }
                 }
             }
         }

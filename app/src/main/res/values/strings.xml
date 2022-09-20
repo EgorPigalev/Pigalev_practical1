@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Автопарк</string>
+    <string name="header_main_activity">База аренды авто</string>
+    <string name="btn_output_list">Вывести список</string>
+    <string name="btn_change_data">Изменить данные</string>
+    <string name="header_changing_data">Изменение БД</string>
+    <string name="et_Marka">Марка</string>
+    <string name="et_Model">Модель</string>
+    <string name="et_year_production">Год производства</string>
+    <string name="btn_add">Добавить</string>
+    <string name="btn_clear">Очистить</string>
+    <string name="btn_exit_main_activity">Вернуться в главное меню</string>
+    <string name="header_single_entry_change">Изменение одной записи</string>
+    <string name="btn_update">Изменить</string>
+    <string name="btn_delete">Удалить</string>
+    <string name="btn_exit">Назад</string>
 </resources>

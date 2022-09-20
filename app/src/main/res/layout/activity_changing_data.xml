@@ -10,7 +10,7 @@
         android:id="@+id/heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Изменение БД"
+        android:text="@string/header_changing_data"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -19,7 +19,7 @@
         android:id="@+id/textMarka"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint ="Марка"
+        android:hint ="@string/et_Model"
         android:inputType="textCapWords"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
         android:id="@+id/textModel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint ="Модель"
+        android:hint ="@string/et_Model"
         android:inputType="textCapWords"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,7 @@
         android:id="@+id/textYearProduction"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint ="Год производства"
+        android:hint ="@string/et_year_production"
         android:inputType="date"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +64,7 @@
             android:layout_weight="1"
             android:background="@drawable/batton_background"
             android:onClick="AddData"
-            android:text="Добавить" />
+            android:text="@string/btn_add" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnClear"
@@ -74,7 +74,7 @@
             android:layout_weight="1"
             android:background="@drawable/batton_background"
             android:onClick="ClearData"
-            android:text="Очистить" />
+            android:text="@string/btn_clear" />
     </TableRow>
 
     <TableLayout
@@ -93,7 +93,7 @@
         android:layout_margin="10dp"
         android:onClick="GoExit"
         android:background="@drawable/batton_background"
-        android:text="Вернуться в главное меню"
+        android:text="@string/btn_exit_main_activity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

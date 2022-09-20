@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="База аренды авто"
+        android:text="@string/header_main_activity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
         android:background="@drawable/batton_background"
         android:onClick="GetTextFromSql"
         android:layout_margin="10dp"
-        android:text="Вывести список"
+        android:text="@string/btn_output_list"
         app:layout_constraintEnd_toStartOf="@+id/InsertList"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Header" />
@@ -37,7 +37,7 @@
         android:onClick="GoChange"
         android:background="@drawable/batton_background"
         android:layout_margin="10dp"
-        android:text="Изменить данные"
+        android:text="@string/btn_change_data"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/OutputList"
         app:layout_constraintTop_toBottomOf="@+id/Header" />
