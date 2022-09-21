@@ -16,31 +16,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/OutputList"
-        android:layout_width="0dp"
+    <TableRow
+        android:id="@+id/buttonChanging"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/batton_background"
-        android:onClick="GetTextFromSql"
-        android:layout_margin="10dp"
-        android:text="@string/btn_output_list"
-        app:layout_constraintEnd_toStartOf="@+id/InsertList"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Header" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/InsertList"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:onClick="GoChange"
-        android:background="@drawable/batton_background"
-        android:layout_margin="10dp"
-        android:text="@string/btn_change_data"
+        app:layout_constraintTop_toBottomOf="@id/Header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/OutputList"
-        app:layout_constraintTop_toBottomOf="@+id/Header" />
+        android:layout_weight="1">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/OutputList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/batton_background"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:onClick="GetTextFromSql"
+            android:text="@string/btn_output_list" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/InsertList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:background="@drawable/batton_background"
+            android:onClick="GoChange"
+            android:text="@string/btn_change_data"/>
+    </TableRow>
 
     <TableLayout
         android:id="@+id/List"
@@ -50,8 +54,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/OutputList">
-
+        app:layout_constraintTop_toBottomOf="@id/buttonChanging">
     </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

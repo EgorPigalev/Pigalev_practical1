@@ -3,6 +3,7 @@ package com.example.pigalev_practical1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -80,35 +81,38 @@ public class ChangingData extends AppCompatActivity {
                     params.weight = 1.0f;
                     outputID.setLayoutParams(params);
                     outputID.setText(resultSet.getString(1).replaceAll("\\s+",""));
-                    outputID.setTextSize(12);
+                    outputID.setTextSize(16);
                     dbOutputRow.addView(outputID);
 
                     TextView outputMarka = new TextView(this);
                     params.weight = 3.0f;
                     outputMarka.setLayoutParams(params);
                     outputMarka.setText(resultSet.getString(2).replaceAll("\\s+",""));
-                    outputMarka.setTextSize(12);
+                    outputMarka.setTextSize(16);
                     dbOutputRow.addView(outputMarka);
 
                     TextView outputModel = new TextView(this);
                     params.weight = 3.0f;
                     outputModel.setLayoutParams(params);
                     outputModel.setText(resultSet.getString(3).replaceAll("\\s+",""));
-                    outputModel.setTextSize(12);
+                    outputModel.setTextSize(16);
                     dbOutputRow.addView(outputModel);
 
                     TextView outputYearProduction = new TextView(this);
                     params.weight = 3.0f;
                     outputYearProduction.setLayoutParams(params);
                     outputYearProduction.setText(resultSet.getString(4).replaceAll("\\s+",""));
-                    outputYearProduction.setTextSize(12);
+                    outputYearProduction.setTextSize(16);
                     dbOutputRow.addView(outputYearProduction);
 
                     Button deleteBtn = new Button(this);
                     deleteBtn.setOnClickListener(this::Go);
                     params.weight = 1.0f;
+                    params.topMargin = 5;
+                    params.bottomMargin = 5;
                     deleteBtn.setLayoutParams(params);
                     deleteBtn.setText("Изменить\nзапись");
+                    deleteBtn.setBackgroundResource(R.drawable.batton_background);
                     deleteBtn.setTextSize(12);
                     dbOutputRow.addView(deleteBtn);
 
