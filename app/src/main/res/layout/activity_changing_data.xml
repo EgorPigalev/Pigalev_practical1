@@ -13,35 +13,35 @@
         android:text="@string/header_changing_data"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/textMarka"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint ="@string/et_Model"
+        android:hint="@string/et_Model"
         android:inputType="textCapWords"
         android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/textModel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heading"
-        app:layout_constraintEnd_toStartOf="@+id/textModel"/>
+        app:layout_constraintTop_toBottomOf="@+id/heading" />
 
     <EditText
         android:id="@+id/textModel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint ="@string/et_Model"
+        android:hint="@string/et_Model"
         android:inputType="textCapWords"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heading"
-        app:layout_constraintStart_toEndOf= "@+id/textMarka"/>
+        app:layout_constraintStart_toEndOf="@+id/textMarka"
+        app:layout_constraintTop_toBottomOf="@+id/heading" />
 
     <EditText
         android:id="@+id/textYearProduction"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint ="@string/et_year_production"
+        android:hint="@string/et_year_production"
         android:inputType="date"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,9 +52,9 @@
         android:id="@+id/buttonChanging"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textYearProduction"
-        android:layout_weight="1">
+        app:layout_constraintTop_toBottomOf="@id/textYearProduction">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAdd"
@@ -77,27 +77,37 @@
             android:text="@string/btn_clear" />
     </TableRow>
 
-    <TableLayout
-        android:id="@+id/dbOutput"
+    <ScrollView
+        android:id="@+id/scrollable"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="5dp"
         app:layout_constraintBottom_toTopOf="@id/Exit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonChanging">
-    </TableLayout>
+        app:layout_constraintTop_toBottomOf="@id/buttonChanging"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <TableLayout
+            android:id="@+id/dbOutput"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+        </TableLayout>
+
+    </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/Exit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:onClick="GoExit"
         android:background="@drawable/batton_background"
+        android:onClick="GoExit"
         android:text="@string/btn_exit_main_activity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dbOutput" />
+        app:layout_constraintTop_toBottomOf="@id/scrollable" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

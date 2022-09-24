@@ -1,21 +1,26 @@
 package com.example.pigalev_practical1;
 
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -25,15 +30,66 @@ public class SingleEntryChange extends AppCompatActivity {
 
     Connection connection;
     Integer index;
-    static final int GALLERY_REQUEST = 1;
 
-    ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
-            new ActivityResultCallback<Uri>() {
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
                 @Override
-                public void onActivityResult(Uri uri) {
-                    // Handle the returned Uri
+                public void onActivityResult(ActivityResult result) {
+                    Bitmap bitmap = null;
+                    ImageView imageView = (ImageView) findViewById(R.id.Picture);
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Uri selectedImage = result.getData().getData();
+                        try
+                        {
+                            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                        }
+                        catch (IOException e)
+                        {
+                            e.printStackTrace();
+                        }
+                        imageView.setImageBitmap(null);
+                        imageView.setImageBitmap(bitmap);
+                        TextView deletePicture = findViewById(R.id.deletePicture);
+                        deletePicture.setVisibility(View.VISIBLE);
+                        String varcharPicture = BitMapToString(bitmap);
+                        addPicture(varcharPicture);
+                    }
                 }
             });
+
+    public String BitMapToString(Bitmap bitmap)
+    {
+        ByteArrayOutputStream baos = new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte [] b = baos.toByteArray();
+        String temp = Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
+    }
+
+    public void addPicture(String varcharPicture)
+    {
+        try
+        {
+            BaseData baseData = new BaseData();
+            connection = baseData.connectionClass();
+            if(connection != null) {
+                String query;
+                if(varcharPicture == ""){
+                    query = "Update Cars Set Picture = null where ID = " + index;
+                }
+                else{
+                    query = "Update Cars Set Picture = '" + varcharPicture + "' where ID = " + index;
+                }
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(query);
+            }
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(this, "При добавление картинки возникла ошибка!", Toast.LENGTH_LONG).show();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +125,7 @@ public class SingleEntryChange extends AppCompatActivity {
         index = arguments.getInt("key");
         GetData();
     }
+
     public void Exit(View v)
     {
         startActivity(new Intent(this, ChangingData.class));
@@ -101,7 +158,8 @@ public class SingleEntryChange extends AppCompatActivity {
                     }
                     else
                     {
-
+                        Bitmap bitmap = StringToBitMap(resultSet.getString(5));
+                        picture.setImageBitmap(bitmap);
                     }
                 }
             }
@@ -109,6 +167,18 @@ public class SingleEntryChange extends AppCompatActivity {
         catch (Exception ex)
         {
             Toast.makeText(this, "При выводе данных произошла ошибка", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0,
+                    encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
         }
     }
 
@@ -157,48 +227,19 @@ public class SingleEntryChange extends AppCompatActivity {
         }
         Exit(v);
     }
+
     public void updatePicture(View v)
     {
-        mGetContent.launch("image/*");
-        /*Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
-         */
+        someActivityResultLauncher.launch(photoPickerIntent);
     }
-
-
-    /*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-
-        Bitmap bitmap = null;
-        ImageView imageView = (ImageView) findViewById(R.id.Picture);
-
-        switch(requestCode) {
-            case GALLERY_REQUEST:
-                if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    imageView.setImageBitmap(null);
-                    imageView.setImageBitmap(bitmap);
-                    TextView deletePicture = findViewById(R.id.deletePicture);
-                    deletePicture.setVisibility(View.VISIBLE);
-                }
-        }
-    }
-     */
 
     public void deletePicture(View v)
     {
         ImageView picture = (ImageView) findViewById(R.id.Picture);
         picture.setImageBitmap(null);
+        addPicture("");
         TextView deletePicture = findViewById(R.id.deletePicture);
         picture.setImageResource(R.drawable.absence);
         deletePicture.setVisibility(View.INVISIBLE);

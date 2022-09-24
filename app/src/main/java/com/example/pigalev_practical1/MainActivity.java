@@ -3,6 +3,7 @@ package com.example.pigalev_practical1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -55,28 +56,32 @@ public class MainActivity extends AppCompatActivity {
                         TextView outputID = new TextView(this);
                         params.weight = 1.0f;
                         outputID.setLayoutParams(params);
-                        outputID.setText("id");
+                        outputID.setText("ID");
+                        outputID.setTypeface(Typeface.DEFAULT_BOLD);
                         outputID.setTextSize(18);
                         dbOutputRow.addView(outputID);
 
                         TextView outputMarka = new TextView(this);
                         params.weight = 3.0f;
                         outputMarka.setLayoutParams(params);
-                        outputMarka.setText("Marka");
+                        outputMarka.setText("Марка");
+                        outputMarka.setTypeface(Typeface.DEFAULT_BOLD);
                         outputMarka.setTextSize(18);
                         dbOutputRow.addView(outputMarka);
 
                         TextView outputModel = new TextView(this);
                         params.weight = 3.0f;
                         outputModel.setLayoutParams(params);
-                        outputModel.setText("Model");
+                        outputModel.setText("Модель");
+                        outputModel.setTypeface(Typeface.DEFAULT_BOLD);
                         outputModel.setTextSize(18);
                         dbOutputRow.addView(outputModel);
 
                         TextView outputYearProduction = new TextView(this);
                         params.weight = 3.0f;
                         outputYearProduction.setLayoutParams(params);
-                        outputYearProduction.setText("year production");
+                        outputYearProduction.setText("Год производства");
+                        outputYearProduction.setTypeface(Typeface.DEFAULT_BOLD);
                         outputYearProduction.setTextSize(18);
                         dbOutputRow.addView(outputYearProduction);
 
