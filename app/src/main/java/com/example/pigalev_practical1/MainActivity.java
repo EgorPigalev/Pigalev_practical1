@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -155,16 +156,75 @@ public class MainActivity extends AppCompatActivity {
     }
     public void search(View v)
     {
+        Spinner chingSearch = findViewById(R.id.chingSearch);
         EditText search = findViewById(R.id.search);
+        Spinner sorting1 = findViewById(R.id.sorting1);
+        Spinner order1 = findViewById(R.id.order1);
+        Spinner sorting2 = findViewById(R.id.sorting2);
+        Spinner order2 = findViewById(R.id.order2);
         String query;
-        if(search.getText() == null){
+        Boolean b = true;
+        if(search.getText().toString().equals("") && sorting1.getSelectedItem().toString().equals("") && sorting2.getSelectedItem().toString().equals("")){
             query = "Select * From Cars";
+            b = false;
+        }
+        else if(!search.getText().toString().equals("") && sorting1.getSelectedItem().toString().equals("") && sorting2.getSelectedItem().toString().equals("")){
+            query = "Select * From Cars Where "+ fild(chingSearch.getSelectedItem().toString()) +" = '"+ search.getText() + "'";
+        }
+        else if(search.getText().toString().equals("") && !sorting1.getSelectedItem().toString().equals("") && sorting2.getSelectedItem().toString().equals("")){
+            query = "Select * From Cars Order BY " + fild(sorting1.getSelectedItem().toString()) +" " + order(order1.getSelectedItem().toString());
+        }
+        else if(search.getText().toString().equals("") && sorting1.getSelectedItem().toString().equals("") && !sorting2.getSelectedItem().toString().equals("")){
+            query = "Select * From Cars Order BY " + fild(sorting2.getSelectedItem().toString()) +" " + order(order2.getSelectedItem().toString());
+        }
+        else if(!search.getText().toString().equals("") && !sorting1.getSelectedItem().toString().equals("") && sorting2.getSelectedItem().toString().equals("")){
+            query = "Select * From Cars Where "+ fild(chingSearch.getSelectedItem().toString()) +" = '"+ search.getText() + "' Order BY " + fild(sorting1.getSelectedItem().toString()) +" " + order(order1.getSelectedItem().toString());
+        }
+        else if(!search.getText().toString().equals("") && sorting1.getSelectedItem().toString().equals("") && !sorting2.getSelectedItem().toString().equals("")){
+            query = "Select * From Cars Where "+ fild(chingSearch.getSelectedItem().toString()) +" = '"+ search.getText() + "' Order BY " + fild(sorting2.getSelectedItem().toString()) +" " + order(order2.getSelectedItem().toString());
+        }
+        else if(search.getText().toString().equals("") && !sorting1.getSelectedItem().toString().equals("") && !sorting2.getSelectedItem().toString().equals("")){
+            query = "Select * From Cars Order BY " + fild(sorting1.getSelectedItem().toString()) +" " + order(order1.getSelectedItem().toString()) + ", " + fild(sorting2.getSelectedItem().toString()) +" " + order(order2.getSelectedItem().toString());
         }
         else{
-            query = "Select * From Cars Where Marka = '"+ search.getText() + "'";
+            query = "Select * From Cars Where "+ fild(chingSearch.getSelectedItem().toString()) +" = '"+ search.getText() + "' Order BY " + fild(sorting1.getSelectedItem().toString()) +" " + order(order1.getSelectedItem().toString()) + ", " + fild(sorting2.getSelectedItem().toString()) +" " + order(order2.getSelectedItem().toString());
         }
         RequestExecution(query);
+        TextView deleteSearch = findViewById(R.id.deleteSearch);
+        if(b == true)
+        {
+            deleteSearch.setVisibility(View.VISIBLE);
+        }
+        else{
+            deleteSearch.setVisibility(View.GONE);
+        }
     }
+
+    public String fild(String str)
+    {
+        if(str.equals("ID")){
+            return "ID";
+        }
+        else if(str.equals("Марка")){
+            return "Marka";
+        }
+        else if(str.equals("Модель")){
+            return  "Model";
+        }
+        else{
+            return "YearProduction";
+        }
+    }
+
+    public String order(String str){
+        if(str.equals("Возрастание")){
+            return "ASC";
+        }
+        else{
+            return "DESC";
+        }
+    }
+
     public void SearchModule(View v)
     {
         TextView textView = findViewById(R.id.headerSearch);
@@ -179,5 +239,24 @@ public class MainActivity extends AppCompatActivity {
             tableSearch.setVisibility(View.VISIBLE);
             textView.setText("Модуль поиска ↑");
         }
+    }
+
+    public void deleteSearch(View v)
+    {
+        Spinner chingSearch = findViewById(R.id.chingSearch);
+        EditText search = findViewById(R.id.search);
+        Spinner sorting1 = findViewById(R.id.sorting1);
+        Spinner order1 = findViewById(R.id.order1);
+        Spinner sorting2 = findViewById(R.id.sorting2);
+        Spinner order2 = findViewById(R.id.order2);
+        chingSearch.setSelection(0);
+        search.setText(null);
+        sorting1.setSelection(0);
+        order1.setSelection(0);
+        sorting2.setSelection(0);
+        order2.setSelection(0);
+        search(v);
+        TextView deleteSearch = findViewById(R.id.deleteSearch);
+        deleteSearch.setVisibility(View.GONE);
     }
 }

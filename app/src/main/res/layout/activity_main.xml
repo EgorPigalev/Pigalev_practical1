@@ -80,7 +80,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/spinner"
                 android:contentDescription="Сортировка"
-                android:entries="@array/fieldsName" />
+                android:entries="@array/fieldsNameSearch" />
 
             <EditText
                 android:id="@+id/search"
@@ -177,6 +177,20 @@
 
     </TableLayout>
 
+    <TextView
+        android:id="@+id/deleteSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:color="@color/buttonBackground"
+        android:onClick="deleteSearch"
+        android:text="Удалить сортировку и поиск"
+        android:layout_margin="5dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tableSearch"
+        android:visibility="gone"/>
+
     <ScrollView
         android:id="@+id/scrollable"
         android:layout_width="match_parent"
@@ -187,7 +201,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tableSearch">
+        app:layout_constraintTop_toBottomOf="@id/deleteSearch">
 
         <TableLayout
             android:id="@+id/List"
