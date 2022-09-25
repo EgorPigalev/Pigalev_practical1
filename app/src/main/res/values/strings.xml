@@ -15,4 +15,15 @@
     <string name="btn_delete">Удалить</string>
     <string name="btn_exit">Назад</string>
     <string name="delete_picture">Удалить картинку</string>
+    <string-array name="fieldsName">
+        <item></item>
+        <item>ID</item>
+        <item>Марка</item>
+        <item>Модель</item>
+        <item>Год производства</item>
+    </string-array>
+    <string-array name="order">
+        <item>Возрастание</item>
+        <item>Убывание</item>
+    </string-array>
 </resources>

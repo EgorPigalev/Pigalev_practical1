@@ -6,13 +6,14 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -22,10 +23,18 @@ public class MainActivity extends AppCompatActivity {
     Connection connection;
     String ConnectionResult = "";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TextView textSearch = findViewById(R.id.search);
+        textSearch.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus)
+                textSearch.setHint("");
+            else
+                textSearch.setHint("Введите значение");
+        });
     }
 
     public void GoChange(View v)
@@ -33,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, ChangingData.class));
     }
 
-    public void GetTextFromSql(View v)
+    public void RequestExecution(String query)
     {
         TableLayout List = findViewById(R.id.List);
         List.removeAllViews();
@@ -43,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             connection = baseData.connectionClass();
             if(connection != null)
             {
-                String query = "Select * From Cars";
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
                 while (resultSet.next())
@@ -131,8 +139,45 @@ public class MainActivity extends AppCompatActivity {
         {
             Toast.makeText(this, "При выводе данных возникла ошибка", Toast.LENGTH_LONG).show();
         }
-
     }
 
+    public void GetTextFromSql(View v)
+    {
+        String query = "Select * From Cars";
+        RequestExecution(query);
+        TextView textView = findViewById(R.id.headerSearch);
+        Button button = findViewById(R.id.OutputList);
+        TableLayout tableSearch = findViewById(R.id.tableSearch);
+        button.setVisibility(View.GONE);
+        textView.setVisibility(View.VISIBLE);
+        tableSearch.setVisibility(View.VISIBLE);
 
+    }
+    public void search(View v)
+    {
+        EditText search = findViewById(R.id.search);
+        String query;
+        if(search.getText() == null){
+            query = "Select * From Cars";
+        }
+        else{
+            query = "Select * From Cars Where Marka = '"+ search.getText() + "'";
+        }
+        RequestExecution(query);
+    }
+    public void SearchModule(View v)
+    {
+        TextView textView = findViewById(R.id.headerSearch);
+        TableLayout tableSearch = findViewById(R.id.tableSearch);
+        if(tableSearch.getVisibility() == View.VISIBLE)
+        {
+            tableSearch.setVisibility(View.GONE);
+            textView.setText("Модуль поиска ↓");
+        }
+        else
+        {
+            tableSearch.setVisibility(View.VISIBLE);
+            textView.setText("Модуль поиска ↑");
+        }
+    }
 }
