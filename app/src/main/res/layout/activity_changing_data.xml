@@ -77,24 +77,26 @@
             android:text="@string/btn_clear" />
     </TableRow>
 
-    <ScrollView
-        android:id="@+id/scrollable"
+    <TextView
+        android:id="@+id/textHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/buttonChanging"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/textHint"
+        android:textAlignment="center"
+        />
+
+    <ListView
+        android:id="@+id/lvData"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"
-        app:layout_constraintBottom_toTopOf="@id/Exit"
+        app:layout_constraintBottom_toTopOf="@+id/Exit"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonChanging"
-        android:layout_weight="1"
-        android:scrollbars="none">
-
-        <TableLayout
-            android:id="@+id/dbOutput"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-        </TableLayout>
-
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/textHint" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/Exit"
@@ -107,7 +109,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scrollable" />
+        app:layout_constraintTop_toBottomOf="@id/lvData" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

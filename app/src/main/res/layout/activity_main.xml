@@ -67,7 +67,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerSearch">
-
         <TableRow
             android:layout_margin="5dp"
             android:layout_weight="1">
@@ -191,26 +190,14 @@
         app:layout_constraintTop_toBottomOf="@id/tableSearch"
         android:visibility="gone"/>
 
-    <ScrollView
-        android:id="@+id/scrollable"
+    <ListView
+        android:id="@+id/lvData"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"
-        android:layout_weight="1"
-        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/deleteSearch">
-
-        <TableLayout
-            android:id="@+id/List"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp">
-
-        </TableLayout>
-
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/deleteSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

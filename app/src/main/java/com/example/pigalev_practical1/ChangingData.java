@@ -3,25 +3,27 @@ package com.example.pigalev_practical1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChangingData extends AppCompatActivity {
 
     Connection connection;
-    String ConnectionResult = "";
+    List<Mask> data;
+    ListView listView;
+    AdapterMask pAdapter;
+
     EditText textMarka, textModel, textYearProduction;
 
     @Override
@@ -29,11 +31,14 @@ public class ChangingData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_changing_data);
 
+        listView = findViewById(R.id.lvData);
+
+
         textMarka = findViewById(R.id.textMarka);
         textModel = findViewById(R.id.textModel);
         textYearProduction = findViewById(R.id.textYearProduction);
 
-        UpdateTable();
+        RequestExecution();
 
         textMarka.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus)
@@ -57,78 +62,56 @@ public class ChangingData extends AppCompatActivity {
         });
     }
 
-    public void UpdateTable()
-    {
-        TableLayout dbOutput = findViewById(R.id.dbOutput);
-        dbOutput.removeAllViews();
-        try
-        {
+    public void enterMobile() {
+        pAdapter.notifyDataSetInvalidated();
+        listView.setAdapter(pAdapter);
+    }
+    public void RequestExecution() {
+        data = new ArrayList<Mask>();
+        listView = findViewById(R.id.lvData);
+        pAdapter = new AdapterMask(ChangingData.this, data);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Go((int)id);
+            }
+        });
+        try {
             BaseData baseData = new BaseData();
             connection = baseData.connectionClass();
-
-            if(connection != null)
+            if (connection != null)
             {
                 String query = "Select * From Cars";
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
+
                 while (resultSet.next())
                 {
-                    TableRow dbOutputRow = new TableRow(this);
-                    dbOutputRow.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                    TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
-
-                    TextView outputID = new TextView(this);
-                    params.weight = 1.0f;
-                    outputID.setLayoutParams(params);
-                    outputID.setText(resultSet.getString(1).replaceAll("\\s+",""));
-                    outputID.setTextSize(16);
-                    dbOutputRow.addView(outputID);
-
-                    TextView outputMarka = new TextView(this);
-                    params.weight = 3.0f;
-                    outputMarka.setLayoutParams(params);
-                    outputMarka.setText(resultSet.getString(2).replaceAll("\\s+",""));
-                    outputMarka.setTextSize(16);
-                    dbOutputRow.addView(outputMarka);
-
-                    TextView outputModel = new TextView(this);
-                    params.weight = 3.0f;
-                    outputModel.setLayoutParams(params);
-                    outputModel.setText(resultSet.getString(3).replaceAll("\\s+",""));
-                    outputModel.setTextSize(16);
-                    dbOutputRow.addView(outputModel);
-
-                    TextView outputYearProduction = new TextView(this);
-                    params.weight = 3.0f;
-                    outputYearProduction.setLayoutParams(params);
-                    outputYearProduction.setText(resultSet.getString(4).replaceAll("\\s+",""));
-                    outputYearProduction.setTextSize(16);
-                    dbOutputRow.addView(outputYearProduction);
-
-                    Button deleteBtn = new Button(this);
-                    deleteBtn.setOnClickListener(this::Go);
-                    params.weight = 1.0f;
-                    params.topMargin = 5;
-                    params.bottomMargin = 5;
-                    deleteBtn.setLayoutParams(params);
-                    deleteBtn.setText("Изменить\nзапись");
-                    deleteBtn.setBackgroundResource(R.drawable.batton_background);
-                    deleteBtn.setTextSize(12);
-                    dbOutputRow.addView(deleteBtn);
-
-                    dbOutput.addView(dbOutputRow);
+                    Mask tempMask = new Mask
+                            (resultSet.getInt("ID"),
+                                    resultSet.getString("Marka"),
+                                    resultSet.getString("Model"),
+                                    resultSet.getString("YearProduction"),
+                                    resultSet.getString("Picture")
+                            );
+                    data.add(tempMask);
+                    pAdapter.notifyDataSetInvalidated();
                 }
+                connection.close();
             }
             else
             {
-                ConnectionResult = "Check Connection";
+
             }
         }
-        catch (Exception ex)
+        catch (SQLException throwables)
         {
-            Toast.makeText(this, "При выводе данных возникла ошибка", Toast.LENGTH_LONG).show();
+            throwables.printStackTrace();
         }
+        enterMobile();
     }
+
+
     public void AddData(View v)
     {
         if(textMarka.getText().length() == 0 || textModel.getText().length() == 0 || textYearProduction.getText().length() == 0){
@@ -152,21 +135,18 @@ public class ChangingData extends AppCompatActivity {
         textMarka.setText("");
         textModel.setText("");
         textYearProduction.setText("");
-        UpdateTable();
+        RequestExecution();
     }
     public void GoExit(View v)
     {
         startActivity(new Intent(this, MainActivity.class));
     }
 
-    public void Go(View v)
+    public void Go(int id)
     {
-        TableRow  tableRow = (TableRow) v.getParent();
-        TextView textView = (TextView) tableRow.getChildAt(0);
-        String idLine = textView.getText().toString();
         Intent intent = new Intent(this, SingleEntryChange.class);
         Bundle b = new Bundle();
-        b.putInt("key", Integer.parseInt(idLine));
+        b.putInt("key", id);
         intent.putExtras(b);
         startActivity(intent);
         finish();
@@ -188,6 +168,6 @@ public class ChangingData extends AppCompatActivity {
         {
             Toast.makeText(this, "При удаление данных возникла ошибка", Toast.LENGTH_LONG).show();
         }
-        UpdateTable();
+        RequestExecution();
     }
 }

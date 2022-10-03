@@ -3,32 +3,37 @@ package com.example.pigalev_practical1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    View v;
     Connection connection;
-    String ConnectionResult = "";
-
+    List<Mask> data;
+    ListView listView;
+    AdapterMask pAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        v = findViewById(com.google.android.material.R.id.ghost_view);
+
+
         TextView textSearch = findViewById(R.id.search);
         textSearch.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus)
@@ -36,110 +41,54 @@ public class MainActivity extends AppCompatActivity {
             else
                 textSearch.setHint("Введите значение");
         });
+
+    }
+
+    public void enterMobile() {
+        pAdapter.notifyDataSetInvalidated();
+        listView.setAdapter(pAdapter);
+    }
+    public void RequestExecution(String query) {
+        data = new ArrayList<Mask>();
+        listView = findViewById(R.id.lvData);
+        pAdapter = new AdapterMask(MainActivity.this, data);
+        try {
+            BaseData baseData = new BaseData();
+            connection = baseData.connectionClass();
+            if (connection != null)
+            {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+
+                while (resultSet.next())
+                {
+                    Mask tempMask = new Mask
+                            (resultSet.getInt("ID"),
+                                    resultSet.getString("Marka"),
+                                    resultSet.getString("Model"),
+                                    resultSet.getString("YearProduction"),
+                                    resultSet.getString("Picture")
+                            );
+                    data.add(tempMask);
+                    pAdapter.notifyDataSetInvalidated();
+                }
+                connection.close();
+            }
+            else
+            {
+
+            }
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        enterMobile();
     }
 
     public void GoChange(View v)
     {
         startActivity(new Intent(this, ChangingData.class));
-    }
-
-    public void RequestExecution(String query)
-    {
-        TableLayout List = findViewById(R.id.List);
-        List.removeAllViews();
-        try
-        {
-            BaseData baseData = new BaseData();
-            connection = baseData.connectionClass();
-            if(connection != null)
-            {
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
-                while (resultSet.next())
-                {
-                    if(resultSet.isFirst()){
-                        TableRow dbOutputRow = new TableRow(this);
-                        dbOutputRow.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                        TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
-
-                        TextView outputID = new TextView(this);
-                        params.weight = 1.0f;
-                        outputID.setLayoutParams(params);
-                        outputID.setText("ID");
-                        outputID.setTypeface(Typeface.DEFAULT_BOLD);
-                        outputID.setTextSize(18);
-                        dbOutputRow.addView(outputID);
-
-                        TextView outputMarka = new TextView(this);
-                        params.weight = 3.0f;
-                        outputMarka.setLayoutParams(params);
-                        outputMarka.setText("Марка");
-                        outputMarka.setTypeface(Typeface.DEFAULT_BOLD);
-                        outputMarka.setTextSize(18);
-                        dbOutputRow.addView(outputMarka);
-
-                        TextView outputModel = new TextView(this);
-                        params.weight = 3.0f;
-                        outputModel.setLayoutParams(params);
-                        outputModel.setText("Модель");
-                        outputModel.setTypeface(Typeface.DEFAULT_BOLD);
-                        outputModel.setTextSize(18);
-                        dbOutputRow.addView(outputModel);
-
-                        TextView outputYearProduction = new TextView(this);
-                        params.weight = 3.0f;
-                        outputYearProduction.setLayoutParams(params);
-                        outputYearProduction.setText("Год производства");
-                        outputYearProduction.setTypeface(Typeface.DEFAULT_BOLD);
-                        outputYearProduction.setTextSize(18);
-                        dbOutputRow.addView(outputYearProduction);
-
-                        List.addView(dbOutputRow);
-                    }
-                    TableRow dbOutputRow = new TableRow(this);
-                    dbOutputRow.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                    TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
-
-                    TextView outputID = new TextView(this);
-                    params.weight = 1.0f;
-                    outputID.setLayoutParams(params);
-                    outputID.setText(resultSet.getString(1).replaceAll("\\s+",""));
-                    outputID.setTextSize(18);
-                    dbOutputRow.addView(outputID);
-
-                    TextView outputMarka = new TextView(this);
-                    params.weight = 3.0f;
-                    outputMarka.setLayoutParams(params);
-                    outputMarka.setText(resultSet.getString(2).replaceAll("\\s+",""));
-                    outputMarka.setTextSize(18);
-                    dbOutputRow.addView(outputMarka);
-
-                    TextView outputModel = new TextView(this);
-                    params.weight = 3.0f;
-                    outputModel.setLayoutParams(params);
-                    outputModel.setText(resultSet.getString(3).replaceAll("\\s+",""));
-                    outputModel.setTextSize(18);
-                    dbOutputRow.addView(outputModel);
-
-                    TextView outputYearProduction = new TextView(this);
-                    params.weight = 3.0f;
-                    outputYearProduction.setLayoutParams(params);
-                    outputYearProduction.setText(resultSet.getString(4).replaceAll("\\s+",""));
-                    outputYearProduction.setTextSize(18);
-                    dbOutputRow.addView(outputYearProduction);
-
-                    List.addView(dbOutputRow);
-                }
-            }
-            else
-            {
-                ConnectionResult = "Check Connection";
-            }
-        }
-        catch (Exception ex)
-        {
-            Toast.makeText(this, "При выводе данных возникла ошибка", Toast.LENGTH_LONG).show();
-        }
     }
 
     public void GetTextFromSql(View v)
@@ -202,10 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
     public String fild(String str)
     {
-        if(str.equals("ID")){
-            return "ID";
-        }
-        else if(str.equals("Марка")){
+        if(str.equals("Марка")){
             return "Marka";
         }
         else if(str.equals("Модель")){
