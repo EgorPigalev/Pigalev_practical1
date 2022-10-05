@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="Модуль поиска ↑"
+        android:text="@string/headerSearchOpen"
         android:textAlignment="center"
         android:visibility="gone"
         android:onClick="SearchModule"
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Введите значение"
+                android:hint="@string/textSearch"
                 android:textAlignment="center" />
 
         </TableRow>
@@ -101,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Сортировка по столбцам"
+                android:text="@string/headerOrder"
                 android:textAlignment="center" />
 
         </TableRow>
@@ -170,7 +170,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/batton_background"
                 android:onClick="search"
-                android:text="Найти" />
+                android:text="@string/btnSearch" />
 
         </TableRow>
 
@@ -182,7 +182,7 @@
         android:layout_height="wrap_content"
         android:color="@color/buttonBackground"
         android:onClick="deleteSearch"
-        android:text="Удалить сортировку и поиск"
+        android:text="@string/deleteSearch"
         android:layout_margin="5dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"

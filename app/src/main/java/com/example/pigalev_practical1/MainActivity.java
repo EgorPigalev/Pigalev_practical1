@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             if (hasFocus)
                 textSearch.setHint("");
             else
-                textSearch.setHint("Введите значение");
+                textSearch.setHint(R.string.textSearch);
         });
 
     }
@@ -178,12 +178,12 @@ public class MainActivity extends AppCompatActivity {
         if(tableSearch.getVisibility() == View.VISIBLE)
         {
             tableSearch.setVisibility(View.GONE);
-            textView.setText("Модуль поиска ↓");
+            textView.setText(R.string.headerSearchClose);
         }
         else
         {
             tableSearch.setVisibility(View.VISIBLE);
-            textView.setText("Модуль поиска ↑");
+            textView.setText(R.string.headerSearchOpen);
         }
     }
 

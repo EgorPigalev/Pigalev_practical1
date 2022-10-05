@@ -104,21 +104,21 @@ public class SingleEntryChange extends AppCompatActivity {
             if (hasFocus)
                 textMarka.setHint("");
             else
-                textMarka.setHint("Марка");
+                textMarka.setHint(R.string.et_Marka);
         });
 
         textModel.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus)
                 textModel.setHint("");
             else
-                textModel.setHint("Модель");
+                textModel.setHint(R.string.et_Model);
         });
 
         textYearProduction.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus)
                 textYearProduction.setHint("");
             else
-                textYearProduction.setHint("Год производства");
+                textYearProduction.setHint(R.string.et_year_production);
         });
 
         Bundle arguments = getIntent().getExtras();

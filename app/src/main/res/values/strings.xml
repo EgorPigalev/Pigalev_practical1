@@ -16,6 +16,12 @@
     <string name="btn_exit">Назад</string>
     <string name="delete_picture">Удалить картинку</string>
     <string name="textHint">Для изменения или удаления записи кликните на неё</string>
+    <string name="headerSearchOpen">Модуль поиска ↑</string>
+    <string name="headerSearchClose">Модуль поиска ↓</string>
+    <string name="textSearch">Введите значение</string>
+    <string name="headerOrder">Сортировка по столбцам</string>
+    <string name="btnSearch">Найти</string>
+    <string name="deleteSearch">Удалить сортировку и поиск</string>
     <string-array name="fieldsNameSearch">
         <item>Марка</item>
         <item>Модель</item>
