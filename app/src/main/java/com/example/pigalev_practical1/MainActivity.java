@@ -111,6 +111,10 @@ public class MainActivity extends AppCompatActivity {
         Spinner order1 = findViewById(R.id.order1);
         Spinner sorting2 = findViewById(R.id.sorting2);
         Spinner order2 = findViewById(R.id.order2);
+        if(sorting1.getSelectedItem().toString() == sorting2.getSelectedItem().toString())
+        {
+            sorting2.setSelection(0);
+        }
         String query;
         Boolean b = true;
         if(search.getText().toString().equals("") && sorting1.getSelectedItem().toString().equals("") && sorting2.getSelectedItem().toString().equals("")){
